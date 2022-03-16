@@ -12,36 +12,7 @@ let FIX = 3.0;
 world.events.beforeChat.subscribe(msg => {
 
    const {message} = msg
-   if(message == "b"){
-try{
-   
-    the_end.getBlock(new BlockLocation(msg.sender.location.x,10,msg.sender.location.z)).setType(MinecraftBlockTypes.stone)
-   
-}catch(err){
-   the_end.runCommand(`me ${err}`)
-}
-     
-   }
-if(message=="变"){msg.cancel = true;
 
-
-
-   Object.keys(tickLineSetsortObject).forEach((key)=>{
-      if(tickLineSetsortObject[key].length == 1){
-         tickLineSetblockArray.push(tickLineSetsortObject[key][0])
-      }else{
-         tickLineSetblockArray.push(tickLineSetsortObject[key][Math.floor(Math.random() * [key].length)])
-      }
-      tickLineSetsortObject[key] = undefined;
-   })
-
-
-
-
-
-
-
-}
 })
 const block_xboy_tool_xyzuvwIDw = function(x,y,z,u,v,w,block,data,who){
          const blocks = ["deepslate_bricks","deepslate_tiles", "cracked_deepslate_tiles"];
