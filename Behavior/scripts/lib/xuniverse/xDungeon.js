@@ -20,6 +20,7 @@ import { initConsole }       from '../RGB39/tellraw-console.js';//RGB牌控制�
 import { orxyz, where }                  from '../xuniverse/xconfig.js';                    //配置变量
 import Chunk_Boundary_Point  from '../xpackage/chunkMath.js';   //计算并返回区块边界点#1
 import xboy                  from '../xuniverse/xx.js';                    //生成房间位置
+import '../xuniverse/xDshop.js';                    //sd
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const the_end = world.getDimension("the end");
@@ -99,7 +100,7 @@ let gamecache = [];//字(mi)面意思
 
 let FIX = 1.0;
 let tickingmain = function(){
-
+	FIX = Math.floor(Math.random() * 5)
 	try{where.runCommand(`execute @a[r=225,m=s,x=${orxyz[0]+160},y=${orxyz[1]},z=${orxyz[2]+160}] ~ ~ ~ gamemode a`)}catch(err){}
 	try{where.runCommand(`execute @a[rm=225,m=a,x=${orxyz[0]+160},y=${orxyz[1]},z=${orxyz[2]+160}] ~ ~ ~ gamemode s`)}catch(err){}
 //满满的无奈

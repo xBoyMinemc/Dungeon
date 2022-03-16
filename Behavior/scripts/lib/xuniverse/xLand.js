@@ -1,5 +1,6 @@
 
-import { BlockLocation, MinecraftBlockTypes, world } from "mojang-minecraft";
+
+ import { BlockLocation, MinecraftBlockTypes, world } from "mojang-minecraft";
 import Chunk_Boundary_Point from '../xpackage/chunkMath.js';
 import { orxyz, where }                  from '../xuniverse/xconfig.js';                    //配置变量
 //############################################################################
@@ -7,13 +8,14 @@ import { orxyz, where }                  from '../xuniverse/xconfig.js';        
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const the_end = world.getDimension("the end");
-
-let FIX = 3.0;
+ 
 world.events.beforeChat.subscribe(msg => {
 
    const {message} = msg
 
 })
+
+let FIX = 3.0;
 const block_xboy_tool_xyzuvwIDw = function(x,y,z,u,v,w,block,data,who){
          const blocks = ["deepslate_bricks","deepslate_tiles", "cracked_deepslate_tiles"];
          if(blocks.some(b=>b==block)){
