@@ -1,18 +1,47 @@
 
-import { world } from "mojang-minecraft";
+import { BlockLocation, MinecraftBlockTypes, world } from "mojang-minecraft";
 import Chunk_Boundary_Point from '../xpackage/chunkMath.js';
-import { orxyz }                  from '../xuniverse/xconfig.js';                    //配置变量
+import { orxyz, where }                  from '../xuniverse/xconfig.js';                    //配置变量
 //############################################################################
 //who
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");
 const the_end = world.getDimension("the end");
 
-let FIX = 2.0;
+let FIX = 3.0;
 world.events.beforeChat.subscribe(msg => {
 
    const {message} = msg
+   if(message == "b"){
+try{
+   
+    the_end.getBlock(new BlockLocation(msg.sender.location.x,10,msg.sender.location.z)).setType(MinecraftBlockTypes.stone)
+   
+}catch(err){
+   the_end.runCommand(`me ${err}`)
+}
+     
+   }
+if(message=="变"){msg.cancel = true;
 
+
+
+   Object.keys(tickLineSetsortObject).forEach((key)=>{
+      if(tickLineSetsortObject[key].length == 1){
+         tickLineSetblockArray.push(tickLineSetsortObject[key][0])
+      }else{
+         tickLineSetblockArray.push(tickLineSetsortObject[key][Math.floor(Math.random() * [key].length)])
+      }
+      tickLineSetsortObject[key] = undefined;
+   })
+
+
+
+
+
+
+
+}
 })
 const block_xboy_tool_xyzuvwIDw = function(x,y,z,u,v,w,block,data,who){
          const blocks = ["deepslate_bricks","deepslate_tiles", "cracked_deepslate_tiles"];
@@ -24,14 +53,18 @@ const block_xboy_tool_xyzuvwIDw = function(x,y,z,u,v,w,block,data,who){
                   // let FIX = 1.6;
                   for (let i = (a * b * c).toFixed(0); i >= 0; i--) {
                      let xboy = Math.random();
-                     if (xboy < xbay*FIX && xboy > xbiy) {
+                     if (xboy < xbay*FIX && xboy > xbiy){
 
                         let xa = x - Math.floor(Math.random() * (x - u));
                         let xb = y - Math.floor(Math.random() * (y - v));
                         let xc = z - Math.floor(Math.random() * (z - w));
                         //who.runCommand(`setblock ${a} ${b} ${c} ${xbry} 0`)
-                        //我选择外包、                  
-                        tickLineSetblockArray.push([xa, xb, xc, xbry, xbdy, who])
+                        //我选择外包.
+                        if(!tickLineSetsortObject[[xa,xb,xc]]){
+                           tickLineSetsortObject[[xa,xb,xc]] = []
+                        }
+                        tickLineSetsortObject[[xa,xb,xc]].push([xa, xb, xc, xbry, xbdy, who])
+                        //tickLineSetblockArray.push([xa, xb, xc, xbry, xbdy, who])
 
                      }
                   }
@@ -54,18 +87,21 @@ const block_xboy_tool_xyzuvwIDw = function(x,y,z,u,v,w,block,data,who){
                xb0y(0.22,"cracked_deepslate_bricks",0,0)
                xb0y(0.04,"deepslate_brick_slab",0,0)
                xb0y(0.04,"deepslate_brick_slab",1,0)
-               if(!(y==orxyz[1] && y==v)){            //天才好吧，地板不给开空洞，防掉
+               if(!(y==orxyz[1] && y==v)){            //啊吧，地板不给开空洞，防掉
                xb0y(0.10,"air",0,0)
-               }
+               }else{
                xb0y(0.10,"barrier",0,0)
+               }
             }
          }
 }
 
+var tickLineSetsortObject = {};
+var tickLineSet_sortArray = [];
 var tickLineSetblockArray = [];
 var tickLineSetblockFunct = function(x,y,z,block,data,who){
    //who.runCommand(`me DEBUG-tickLineSetblockFunct-${x} ${y} ${z} ${block} ${data}`)
-   who.runCommand(`setblock ${x} ${y} ${z} ${block} ${data}`)
+   the_end.runCommand(`setblock ${x} ${y} ${z} ${block} ${data}`)
 }
 
 
@@ -79,20 +115,20 @@ var tickLineReplaceFunct = function (x,y,z,u,v,w,blockA,dataA,blockB,dataB,who){
 }
 
 
-
 var tickLineFillArray = []
 var tickLineFillFunct = function (x,y,z,u,v,w,block,data,who){
-//who.runCommand(`me ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
-who.runCommand(`fill ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
+   //who.runCommand(`me ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
+   who.runCommand(`fill ${x} ${y} ${z} ${u} ${v} ${w} ${block} ${data} replace`);
 
-block_xboy_tool_xyzuvwIDw(x,y,z,u,v,w,block,data,who)
+   block_xboy_tool_xyzuvwIDw(x,y,z,u,v,w,block,data,who)
 
 }
 
-var tickLineCLEAR = function(){
+var tickLineCLEAR = function(){  //清空队列
       tickLineReplaceArray = [];
       tickLineFillArray    = [];
       tickLineSetblockArray= [];
+      setCount.fix         = 0 ;
 }
 
 //#1       北 N  z-   #2  @0
@@ -108,48 +144,67 @@ var tickLineCLEAR = function(){
 //#4      难 S  z+    #3
 //
 //@_0_1_2_3_4_5_6_7_8_9_@
-let tickTime = 0
-let s = 0   //用于储存set队列长度
-let t = 0
-let max = 0  
-let unmax = 0
+
+let setCount = {
+   a:0, //set队列完成数
+   z:0, //辅助
+   max:0,
+   unmax:0,
+   c:0,
+   fix:0   //决定是否跑 set队列
+}
 world.events.tick.subscribe(i => {
-tickTime++;
+setCount.fix++;
+if(setCount.fix>5 && !tickLineFillArray.length && !tickLineReplaceArray.length){
+   setCount.fix=0;
+   if(tickLineSetsortObject){
+   Object.keys(tickLineSetsortObject).forEach((key) => {
+      if (tickLineSetsortObject[key].length == 1) {
+         tickLineSetblockArray.push(tickLineSetsortObject[key][0])
+      } else {
+         tickLineSetblockArray.push(tickLineSetsortObject[key][Math.floor(Math.random() * [key].length)])
+      }
+      tickLineSetsortObject[key] = undefined;
+   })
+   tickLineSetsortObject = {}
+   }
 
-   if(tickTime>0){
-   }
-      tickTime--;
-      try{
-         if(tickLineFillArray.length > 0){ let l = tickLineFillArray[0];tickLineFillArray.shift(); tickLineFillFunct(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7], l[8]);}//本来是pop来着
-         if(tickLineFillArray.length > 0){ let l = tickLineFillArray[0];tickLineFillArray.shift(); tickLineFillFunct(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7], l[8]);}//本来是pop来着
-      //双核双die，效率更快
-      }catch(err){
-   //有报错憋着
-   }
-
-   try{
-      if(tickLineReplaceArray.length > 0){ let l = tickLineReplaceArray[0];tickLineReplaceArray.shift(); tickLineReplaceFunct(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7], l[8], l[9], l[10]);}
-      if(tickLineReplaceArray.length > 0){ let l = tickLineReplaceArray[0];tickLineReplaceArray.shift(); tickLineReplaceFunct(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7], l[8], l[9], l[10]);}
-         //双核双die，效率更快
-   }catch(err){
-//console.log(err)
-   }
-   try{
-      unmax = tickLineSetblockArray.length;
-   if(tickLineSetblockArray.length && max < unmax){max=unmax};
-      if(!tickLineFillArray.length && !tickLineReplaceArray.length && !!tickLineSetblockArray.length){
-         for(let i = 64;i>0;i--){
-            s++
-         let l = tickLineSetblockArray.pop(); tickLineSetblockFunct(l[0], l[1], l[2], l[3], l[4], l[5]);
+}
+   try {
+      for (let i = 0; i < 5; i++) {
+         if (tickLineFillArray.length > 0) {
+            let l = tickLineFillArray[0]; tickLineFillArray.shift(); tickLineFillFunct(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7], l[8]);
          }
       }
+   } catch (err) {
+      //有报错憋着
+   }
+   try{
+      for (let i = 0; i < 4; i++) {
+         if (tickLineReplaceArray.length > 0) {
+            let l = tickLineReplaceArray[0]; tickLineReplaceArray.shift(); tickLineReplaceFunct(l[0], l[1], l[2], l[3], l[4], l[5], l[6], l[7], l[8], l[9], l[10]);
+         }
+      }
+
    }catch(err){}
-   if(s!=t&&s){the_end.runCommand(`title @a[tag=xdungeon,rm=1] actionbar §e§l生成进度:§3${s} # ${max} # ${((s/(max))*100).toFixed(1)}%`);t=s}
-   if(!tickLineSetblockArray.length){s=0;unmax=0;max=unmax;}
+
+       setCount.unmax = tickLineSetblockArray.length;
+   if (tickLineSetblockArray.length) { setCount.max = setCount.unmax };
+   if (!tickLineFillArray.length && !tickLineReplaceArray.length && !!tickLineSetblockArray.length) {
+      for (let i = 512; i > 0; i--) {
+         let l = tickLineSetblockArray.pop(); tickLineSetblockFunct(l[0], l[1], l[2], l[3], l[4], l[5]);
+         //由此得来的数据虽然模糊，但也够看
+         setCount.a++
+      }
+   }
+  
+
+   if(setCount.a!=setCount.z&&setCount.a){the_end.runCommand(`title @a[tag=xdungeon,rm=1] actionbar §e§l生成进度:§3${setCount.a} # ${((setCount.a/(setCount.max))*100).toFixed(1)}%`);setCount.z=setCount.a}
+   //if(setCount.a!=setCount.z&&setCount.a){the_end.runCommand(`title @a[tag=xdungeon,rm=1] actionbar §e§l生成进度:§3${setCount.a} # ${setCount.max} # ${((setCount.a/(setCount.max))*100).toFixed(1)}% # ${setCount.c} #fix ${setCount.fix}`);setCount.z=setCount.a}
+   if(!tickLineSetblockArray.length){setCount.a=0;setCount.unmax=0;setCount.max=setCount.unmax;}//复位
+
 })
 
-const work_y_    = [ 320, 224, 128, 32, -64 ]
-   
 const chunk_fill_tool_xYzIDw  = function ( x, work_y, z, blockId, blockData, who){
    
    const xz1 = Chunk_Boundary_Point.x2D([x,z])

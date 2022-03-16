@@ -326,7 +326,7 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
 
 	tConsole.update();
 	tickingmain();
- 	backTool.set(backTag,["the end"]);
+ 	backTool.set(backTag,["the end","overworld"]);
 
 	 [where].forEach((w)=>{
 		getPlayers(w).forEach(player => {
@@ -373,44 +373,7 @@ world.events.tick.subscribe(() => {//我()了，这也是一种不（）
 	})
 })
 	}
-	/*
-	//旧时代的测试用核心，圆满完成使命
-	getPlayers(where).forEach(player => {
-		let x = player.location.x >= 0 ? player.location.x-0.5 : player.location.x+0.5;
-		let z = player.location.z >= 0 ? player.location.z-0.5 : player.location.z+0.5;
-	let xz =  Chunk_Boundary_Point.x2D([x,z])
 
-	xz = {x:xz[0],z:xz[1]};temp++;
-		if(gamecache.length > 0 && temp>0){
-			temp=0
-			gamecache.forEach((room)=>{
- 
-				if(room.x==xz.x && room.z==xz.z ){
-					overworld.runCommand(`title @a actionbar ${room.x} ${room.z} # ${xz.x} ${xz.z}`)
-					if(tempp==0){
-						where.runCommand(`particle xboy:ttk ${xxz.x+8} ${orxyz[1]+7} ${xxz.z+8}`)
-						//where.runCommand(`particle xboy:ttk ${xxz.x+7} 198 ${xxz.z+7}`)
-						where.runCommand(`particle xboy:s ${xxz.x+7} ${orxyz[1]+7} ${xxz.z+7}`)
-						where.runCommand(`particle xboy:s ${xxz.x+3} ${orxyz[1]+7} ${xxz.z+9}`)
-						where.runCommand(`particle xboy:s ${xxz.x+5} ${orxyz[1]+7} ${xxz.z+5}`)
-						where.runCommand(`particle xboy:s ${xxz.x+1} ${orxyz[1]+7} ${xxz.z+8}`)
-						where.runCommand(`particle xboy:s ${xxz.x+10} ${orxyz[1]+7} ${xxz.z+6}`)
-						where.runCommand(`summon minecraft:zombie ${xxz.x+7} ${orxyz[1]+7} ${xxz.z+7}`)
-						where.runCommand(`summon minecraft:zombie ${xxz.x+3} ${orxyz[1]+7} ${xxz.z+9}`)
-						where.runCommand(`summon minecraft:zombie ${xxz.x+5} ${orxyz[1]+7} ${xxz.z+5}`)
-						where.runCommand(`summon minecraft:zombie ${xxz.x+1} ${orxyz[1]+7} ${xxz.z+8}`)
-						where.runCommand(`summon minecraft:zombie ${xxz.x+10} ${orxyz[1]+7} ${xxz.z+6}`)
-						//where.runCommand(`me ############${[xxz.x+8, 192, xxz.z+8, "stone", 0, "air", 0]}`)
-						gate_fill_tool_xyzIDIDw.a(xxz.x, orxyz[1], xxz.z, "nether_brick_fence", 0, "air", 0, where)
-						tempp++	
-					}
-				}else{
-				//overworld.runCommand("title @a actionbar "+xz.x+"#"+xz.z)
-				};
-
-		})}
-	});
-*/
 })
 
 
@@ -476,12 +439,10 @@ function rest(){
 	for(let u = 2;u<19;u++){
 
 		 //where.runCommand(`me ${u21v21[u]}`)
+			 //console.log(u21v21[u].join())
 			 try{
-			 console.log(u21v21[u].join())
 			 the_end.runCommand(`tellraw @a[tag=xdungeon] {"rawtext":[{"text":"§r§l⑨${u21v21[u].join().replace("★","§e★§r§l")}"}]}`)
-			 }catch(err){
-				 console.log(76543,err)
-				}
+			 }catch(err){}
 			
   		 for(let v = 2;v<19;v++){
 			   let roomDetail = u21v21[u][v];
@@ -586,7 +547,7 @@ if(message == "地牢帮助"){msg.cancel = true;
 	})
 }
 if(message.startsWith("难度调整")){FIX = +message.replace("难度调整","");msg.message = "难度调整为；"+FIX}
-if(message == "坐牢" && msg.sender.hasTag("xdungeon") ){msg.message = "爷又回来辣！！！！";backTool.get("###xback###",["the end"],[msg.sender]);msg.sender.runCommand(`xp -1L`)}
+if(message == "坐牢" && msg.sender.hasTag("xdungeon") ){msg.message = "爷又回来辣！！！！";backTool.get("###xback###",["the end","overworld"],[msg.sender]);msg.sender.runCommand(`xp -1L`)}
 if(message == "清牢" && msg.sender.hasTag("xdungeon") && msg.sender.dimension === where){msg.message = "清场中....";clear()   }
 if(message == "开牢" && msg.sender.hasTag("xdungeon") && msg.sender.dimension === where){msg.message = "清场中....请等待生成";clear() ; rest()   }
 if(message == "出牢" && msg.sender.dimension === where){msg.cancel  = true;msg.sender.kill()}
