@@ -70,8 +70,117 @@ const goodsListObject = {
             itemCount   : 16,
             price       : (16*(FIX+8.5)).toFixed(0)
             }
+    },
+    "建材": {
+        "荧石": {
+            itemName: "minecraft:glowstone",
+            itemData: 0,
+            itemCount: 4,
+            price: (8 * (FIX)).toFixed(0)
+        },
+        "海晶灯": {
+            itemName: "minecraft:sealantern",
+            itemData: 0,
+            itemCount: 4,
+            price: (9 * (FIX)).toFixed(0)
+        },
+        "白色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 0,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "橙色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 1,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "品红混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 2,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "淡蓝混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 3,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "黄色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 4,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "黄绿混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 5,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "粉色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 6,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "灰色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 7,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "淡灰混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 8,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "青色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 9,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "紫色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 10,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "蓝色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 11,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "棕色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 12,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "绿色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 13,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "红色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 14,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        },
+        "黑色混凝土": {
+            itemName: "minecraft:concrete",
+            itemData: 15,
+            itemCount: 32,
+            price: (48 * (FIX)).toFixed(0)
+        }
     }
-    //"建材" : [],
     // "" : [],
     // "" : [],
     // "" : [],

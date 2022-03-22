@@ -1,6 +1,4 @@
-
-
- import { BlockLocation, MinecraftBlockTypes, world } from "mojang-minecraft";
+import { BlockLocation, MinecraftBlockTypes, world } from "mojang-minecraft";
 import Chunk_Boundary_Point from '../xpackage/chunkMath.js';
 import { orxyz, where }                  from '../xuniverse/xconfig.js';                    //配置变量
 //############################################################################
@@ -44,10 +42,10 @@ const block_xboy_tool_xyzuvwIDw = function(x,y,z,u,v,w,block,data,who){
                }
             if(block=="deepslate_tiles"  && data==0){//floor
                xb0y(0.10, "deepslate_gold_ore",0,    0)
-               xb0y(0.08, "deepslate_redstone_ore",0,    0)
+               xb0y(0.08, "deepslate_redstone_ore",0,0)
                xb0y(0.22,"cracked_deepslate_tiles",0,0)
                xb0y(0.11, "polished_deepslate",0,    0)
-               xb0y(0.11, "cobbled_deepslate",0,    0)
+               xb0y(0.11, "cobbled_deepslate" ,0,    0)
                xb0y(0.10,"barrier",0,0)
             }
             if(block=="cracked_deepslate_tiles" && data==0){
@@ -55,12 +53,12 @@ const block_xboy_tool_xyzuvwIDw = function(x,y,z,u,v,w,block,data,who){
                xb0y(0.34,"gold_block",0,        0)
             }
             if(block=="deepslate_bricks" && data==0){
-               xb0y(0.007,"glowstone",0,0)
+               xb0y(0.007,"glowstone" ,0,0)
                xb0y(0.005,"sealantern",0,0)
                xb0y(0.22,"cracked_deepslate_bricks",0,0)
                xb0y(0.04,"deepslate_brick_slab",0,0)
                xb0y(0.04,"deepslate_brick_slab",1,0)
-               if(!(y==orxyz[1] && y==v)){            //啊吧，地板不给开空洞，防掉
+               if(!(y==orxyz[1] && y==v)){            //啊吧，地板不给开air洞，防掉
                xb0y(0.10,"air",0,0)
                }else{
                xb0y(0.10,"barrier",0,0)
@@ -74,7 +72,7 @@ var tickLineSet_sortArray = [];
 var tickLineSetblockArray = [];
 var tickLineSetblockFunct = function(x,y,z,block,data,who){
    //who.runCommand(`me DEBUG-tickLineSetblockFunct-${x} ${y} ${z} ${block} ${data}`)
-   the_end.runCommand(`setblock ${x} ${y} ${z} ${block} ${data}`)
+   who.runCommand(`setblock ${x} ${y} ${z} ${block} ${data}`)
 }
 
 
