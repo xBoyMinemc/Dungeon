@@ -1,7 +1,57 @@
 import { world, ItemStack, MinecraftItemTypes } from "mojang-minecraft";
 import { xbLang } from "../xpackage/lang-test.js";
 
+const xboyList = {
+            " c": "amount",
+            " count": "amount",
+            " a": "amount",
+            " amount": "amount",
+            " d": "data",
+            " data": "data",
+            " n": "nameTag",
+            " name": "nameTag",
+            " nametag": "nameTag",
+            " d": "data",
+            " durability": "data"
+        }
 
+const xItem2StackAnount = {
+    "bow" : 1,
+    "axe" : 1,
+    "sword" : 1,
+    "shovel" : 1,
+    "hoe" : 1,
+    "horsearmor" : 1,
+    "helmet" : 1,
+    "chestplate" : 1,
+    "boots" : 1,
+    // "leggings" : 1,
+    "egg" : 1,
+    "bucket" : 1,
+    "totem" : 1,
+    "map" : 1,
+    //"sign" : 16,
+    "book" : 1,
+    "bee_nest" : 1,
+    "soup" : 1,
+    "stew" :1,
+    "bed" : 1,
+    "boat" : 1,
+    "cake" : 1,
+    "campfire" : 1,
+    "minecart" : 1,
+    "clock" : 1,
+    "compass" : 1,
+    "potion" :1,
+    "honey_bottle" : 1,
+    "record" : 1,
+    "saddle" : 1,
+    "shears" : 1,
+    "shield" : 1,
+    "shulker_shell" : 1
+}
+
+const xItem2StackAnountKeys = Object.keys(xItem2StackAnount);
 
 
 world.events.beforeChat.subscribe(msg => {
@@ -24,19 +74,7 @@ world.events.beforeChat.subscribe(msg => {
 
         let xboy = "xboy"
 
-        let xboyList = {
-            " c": "amount",
-            " count": "amount",
-            " a": "amount",
-            " amount": "amount",
-            " d": "data",
-            " data": "data",
-            " n": "nameTag",
-            " name": "nameTag",
-            " nametag": "nameTag",
-            " d": "data",
-            " durability": "data"
-        }
+
         if (mmm == "") { xboy = "id" } else {
             xboy = xboyList[mmm]
         }
@@ -73,8 +111,14 @@ world.events.beforeChat.subscribe(msg => {
             items.sort((x, y) => x[xboy] > y[xboy] ? a : z);
 
             for (let i = 1; i < inv.getComponent("inventory").container.size; i++) {
+                let xboy = 0;
                 let itemx = items[i - 1]
                 let itemy = items[i]
+                xItem2StackAnountKeys.forEach((itemName)=>{
+                    if(itemx.id.indexOf(itemName)) xboy++;
+                    if(itemy.id.indexOf(itemName)) xboy++;
+                })
+                if(xboy) continue;
                 if (!itemx || !itemy || itemx.amount >= 64 || itemy.amount >= 64 || itemx.amount == 0 || itemy.amount == 0 || itemx.id == "" || itemy.id == "") { continue; }
                 if (!(itemx.data == itemy.data && itemx.nameTag == itemy.nameTag && itemx.id == itemy.id)) { continue; }
 

@@ -2,7 +2,8 @@ import {
 	world,
 	EntityQueryOptions,
 	BlockLocation,
-	Location
+	Location,
+	GameMode
   } from "mojang-minecraft";
 import {
 	tickLineCLEAR,
@@ -101,8 +102,8 @@ let gamecache = [];//字(mi)面意思
 let FIX = 1.0;
 let tickingmain = function(){
 	FIX = Math.floor(Math.random() * 5)
-	try{where.runCommand(`execute @a[r=225,m=s,x=${orxyz[0]+160},y=${orxyz[1]},z=${orxyz[2]+160}] ~ ~ ~ gamemode a`)}catch(err){}
-	try{where.runCommand(`execute @a[rm=225,m=a,x=${orxyz[0]+160},y=${orxyz[1]},z=${orxyz[2]+160}] ~ ~ ~ gamemode s`)}catch(err){}
+	// try{where.runCommand(`execute @a[tag=!xdungeon,m=s] ~ ~ ~ gamemode a`)}catch(err){}
+	// try{where.runCommand(`execute @a[tag=xdungeon,m=a] ~ ~ ~ gamemode s`)}catch(err){}
 //满满的无奈
 	let dungeonTickPlayersArray = [];
 	{
@@ -114,9 +115,11 @@ let tickingmain = function(){
 		let __tes = where.getEntities(__tess)
 
 		for(let __ta of __tes){
-			if( __ta.location.y<orxyz[1]+16 && __ta.location.y>orxyz[1]){
+			if( __ta.location.y<orxyz[1]+16 && __ta.location.y>orxyz[1] && __ta.dimension == where){
 				//在场景附近，且在房间内，正常
 				//mode->冒险
+				
+				try{__ta.runCommand("gamemode adventure @s[m=survival]")}catch(err){}
 				
 				dungeonTickPlayersArray.push(__ta)
 				//console.log(__ta.id)
@@ -125,9 +128,30 @@ let tickingmain = function(){
 				///backTool.setxd("###xd###","the end",__ta);//专属死亡回溯,无了
 			}else{
 				//在场景附近，但不在房间内，处理掉
+				__ta.teleport(xocxyzLocation,where,0,0)
 			}
 		}
 	}
+	
+	{
+		let  xboyInRoom = new EntityQueryOptions();
+			 xboyInRoom.location = ocxyzLocation;
+			 xboyInRoom.maxDistance = 225;
+			 xboyInRoom.type = "minecraft:player";
+		let xbayInRoom = new EntityQueryOptions();
+		xbayInRoom.type = "minecraft:player";
+
+				let xboy  = [];
+				let xbay  = [];
+				for(let xb0y of where.getEntities(xboyInRoom)){if(xb0y.dimension == where) xboy.push(xb0y);};
+				for(let xb0y of where.getEntities(xbayInRoom)){xbay.push(xb0y);};
+					xbay.forEach((player)=>{
+						if(!xboy.includes(player)){
+							try{player.runCommand(`gamemode survival @s[m=adventure]`)}catch(err){}
+							
+						}
+					})
+	}//临时做场景保护用，冒险
 	if(gamecache.length && dungeonTickPlayersArray.length){
 
 		let dungeonTickRoomsArray = []
@@ -141,7 +165,6 @@ let tickingmain = function(){
 		}
 
 		dungeonTickRoomsArray.forEach((room,__tex)=>{
-
 				let	 xboyInRoom = function(type){
 				let  xboyInRoom = new EntityQueryOptions();
 					 xboyInRoom.location = new Location(room.x+7,orxyz[1]+2,room.z+7);
@@ -149,7 +172,7 @@ let tickingmain = function(){
 					 xboyInRoom.type = type;
 
 						let xboy  = [];
-					for(let xb0y of where.getEntities(xboyInRoom)){xboy.push(xb0y)};
+					for(let xb0y of where.getEntities(xboyInRoom)){xboy.push(xb0y);};
 					return  xboy.filter(xbay => xbay.location.x<=room.x+17 && xbay.location.x>=room.x-1 && xbay.location.y<=8 && xbay.location.y>=0 && xbay.location.z<=room.z+17 && xbay.location.z>=room.z-1 )
 							  //再判是否在房间内
 					}
@@ -159,7 +182,8 @@ let tickingmain = function(){
 						item.runCommand(`scoreboard players add @p[x=${room.x-1},y=${orxyz[1]},z=${room.z-1},dx=17,dy=17,dz=17] xdungon 1`);
 						item.runCommand(`scoreboard players add @p[x=${room.x-1},y=${orxyz[1]},z=${room.z-1},dx=17,dy=17,dz=17] xdungon_dis 1`);
 					});//掉落物标记，图省事直接丢main里了
-///console.log(room.detail)
+			///console.log(room.detail)
+
 
 			if (room.status == 1 && room.detail == "★") {
 				clear();
