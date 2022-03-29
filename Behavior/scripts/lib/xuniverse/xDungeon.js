@@ -125,10 +125,10 @@ let tickingmain = function(){
 				//console.log(__ta.id)
 				//塞玩家入列表
 				
-				///backTool.setxd("###xd###","the end",__ta);//专属死亡回溯,无了
+				backTool.setxd("###xd###","the end",__ta);//专属死亡回溯,无了
 			}else{
 				//在场景附近，但不在房间内，处理掉
-				__ta.teleport(xocxyzLocation,where,0,0)
+				//__ta.teleport(xocxyzLocation,where,0,0)
 			}
 		}
 	}
@@ -222,14 +222,14 @@ let tickingmain = function(){
 				{
 						gate_fill_tool_xyzIDIDw.a(room.x, orxyz[1], room.z, "nether_brick_fence", 0, "air", 0, where)
 						where.runCommand(`particle xboy:ttk ${room.x+8} ${orxyz[1]+6.1} ${room.z+8}`)
-					for(let i = 4*FIX;i>0;){
+					for(let i = 3*FIX;i>0;){
 						let x = Math.floor(Math.random() * 15);
 						let z = Math.floor(Math.random() * 15);
 						    i = Math.floor(Math.random() * 15)>8 ? i : i-1;
 						where.runCommand(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
 						where.runCommand(`summon minecraft:zombie ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
 					}
-					for(let i = 1*FIX;i>0;){
+					for(let i = 1*FIX*0.8;i>0;){
 						let x = Math.floor(Math.random() * 15);
 						let z = Math.floor(Math.random() * 15);
 							i = x>8 ? i : i-1;
@@ -243,19 +243,20 @@ let tickingmain = function(){
 			}
 			if(room.status == 3 && xboyInRoomTurest){
 				where.runCommand(`particle xboy:ttk ${room.x+8} ${orxyz[1]+6.1} ${room.z+8}`)
-				for(let i = 2*FIX;i>0;){
+				for(let i = 2*FIX*0.8;i>0;){
 					let x = Math.floor(Math.random() * 15);
 					let z = Math.floor(Math.random() * 15);
 						i = x>8 ? i : i-1;
 					where.runCommand(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
 					where.runCommand(`summon minecraft:zombie ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
 				}
-				for(let i = 1*FIX;i>0;){
+				for(let i = 1*FIX*0.8;i>0;){
 					let x = Math.floor(Math.random() * 15);
 					let z = Math.floor(Math.random() * 15);
 						i = x>8 ? i : i-1;
 					where.runCommand(`particle xboy:s ${room.x+x} ${orxyz[1]+1} ${room.z+z}`)
 					where.runCommand(`summon minecraft:skeleton ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
+					where.runCommand(`summon minecraft:slime ${room.x+x} ${orxyz[1]+3} ${room.z+z}`)
 				}
 				gate_fill_tool_xyzIDIDw.a(room.x, orxyz[1], room.z, "nether_brick_fence", 0, "air", 0, where)
 				
@@ -273,22 +274,23 @@ let tempp = 0
 */
 
 const backTool = {
-	// setxd : function (backTagMain,worldNameTag,player) {//待修
-	// 	//因为死亡后player不再在所选区域，于是不再触发此函数，导致死亡时无法触发此函数
-	// 	//地牢特供
-	// 		let func = {
-	// 			tag: function (player) {
-	// 				player.getTags().forEach(
-	// 					tag => { if (tag.startsWith(backTagMain)) { player.removeTag(tag) } }
-	// 				)
-	// 			}
-	// 		};
-	// 		if (testDead(player) && player.location.y < 32767) {
-	// 			func.tag(player)
-	// 			player.addTag(backTagMain + worldNameTag + "#" + player.location.x.toFixed(1) + "#" + player.location.y.toFixed(1) + "#" + player.location.z.toFixed(1) + backTagMain)
-	// 		}
+	setxd : function (backTagMain,worldNameTag,player) {//待修
+		//因为死亡后player不再在所选区域，于是不再触发此函数，导致死亡时无法触发此函数
+		//地牢特供
+		if(player.dimension != world.getDimension(worldNameTag)) return;
+			let func = {
+				tag: function (player) {
+					player.getTags().forEach(
+						tag => { if (tag.startsWith(backTagMain)) { player.removeTag(tag) } }
+					)
+				}
+			};
+			if (testDead(player) && player.location.y < 32767) {
+				func.tag(player)
+				player.addTag(backTagMain + worldNameTag + "#" + player.location.x.toFixed(1) + "#" + player.location.y.toFixed(1) + "#" + player.location.z.toFixed(1) + backTagMain)
+			}
 
-	// },
+	},
 	set : function (backTagMain,worlds) {
 		//###xback###           worlds:String[]
 		//在选定的维度里，用固定的tag标识符

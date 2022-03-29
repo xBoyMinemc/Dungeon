@@ -9,44 +9,44 @@ const getScorePlayerStr = function (playerName,obj){return overworld.runCommand(
 const setScorePlayerStr = function (name,obj,num){overworld.runCommand(`scoreboard players set "${name}" ${obj} ${num}`)};
 const addScorePlayerStr = function (name,obj,num){overworld.runCommand(`scoreboard players add "${name}" ${obj} ${num}`)};//仨旧时代的产物
 
-const FIX = Math.random() + 0.6
+const FIX = Math.random() + 0.2
 const goodsListObject = {
     "木材" : {
          "橡木" : {
         itemName    : "minecraft:log",
         itemData    : 0,
         itemCount   : 64,
-        price       : (48*FIX*3).toFixed(0)
+        price       : (48*FIX*2.3).toFixed(0)
         },
         "云杉木" : {
         itemName    : "minecraft:log",
         itemData    : 1,
         itemCount   : 64,
-        price       : (48*FIX*3).toFixed(0)
+        price       : (48*FIX*2.3).toFixed(0)
         },
         "白桦木" : {
         itemName    : "minecraft:log",
         itemData    : 2,
         itemCount   : 64,
-        price       : (48*FIX*3).toFixed(0)
+        price       : (48*FIX*2.3).toFixed(0)
         },
         "从林木" : {
         itemName    : "minecraft:log",
         itemData    : 3,
         itemCount   : 64,
-        price       : (48*FIX*3).toFixed(0)
+        price       : (48*FIX*2.3).toFixed(0)
         },
         "金合欢木" : {
         itemName    : "minecraft:log2",
         itemData    : 0,
         itemCount   : 64,
-        price       : (48*FIX*3).toFixed(0)
+        price       : (48*FIX*2.3).toFixed(0)
         },
         "深色橡木" : {
         itemName    : "minecraft:log2",
         itemData    : 1,
         itemCount   : 64,
-        price       : (48*FIX*3).toFixed(0)
+        price       : (48*FIX*2.3).toFixed(0)
         }
     },
     "石材" : {
@@ -68,7 +68,7 @@ const goodsListObject = {
             itemName    : "minecraft:bread",
             itemData    : 0,
             itemCount   : 16,
-            price       : (16*(FIX+8.5)).toFixed(0)
+            price       : (16*(FIX+4.5)).toFixed(0)
             }
     },
     "建材": {
@@ -174,14 +174,28 @@ const goodsListObject = {
             itemCount: 32,
             price: (48 * (FIX)).toFixed(0)
         },
-        "黑色混凝土": {
-            itemName: "minecraft:concrete",
-            itemData: 15,
-            itemCount: 32,
-            price: (48 * (FIX)).toFixed(0)
-        }
-    }
-    // "" : [],
+
+    },
+    "耗材" : {
+        "烟花": {
+            itemName: "minecraft:firework_rocket",
+            itemData: 0,
+            itemCount: 8,
+            price: (20 * (FIX)).toFixed(0)
+        },        
+        "空气": {
+            itemName: "minecraft:air",
+            itemData: 0,
+            itemCount: 8,
+            price: (20 * (FIX)).toFixed(0)
+        },        
+        "教训": {
+            itemName: "minecraft:air",
+            itemData: 0,
+            itemCount: 64,
+            price: (64 * (FIX)).toFixed(0)
+        }        
+    }    // "" : [],
     // "" : [],
     // "" : [],
     // "" : [],
