@@ -27,4 +27,18 @@ const getPlayers = function(where){ // 一种不是很优雅的获取玩家列�
 	   }
 	   return playersArray;
 };
-export { testDead, getPlayers };
+
+const assPlayerDimension = player =>{
+    let dimension;
+    ! player.dimension
+    ? dimension = -1                   //出错
+    : player.dimension === overworld
+    ? dimension = 0                    //主世界
+    : player.dimension === nether
+    ? dimension = 1                    //地狱
+    : dimension = 2                    //末地
+    
+    return dimension;
+}
+
+export { testDead, getPlayers, assPlayerDimension };
