@@ -63,48 +63,34 @@ const Chunk_Boundary_Point = {
              return i;
         })
        
-  },
-  
-  kyj : function (x,z,u,v){
-       
-       //你知道回字有四样写法吗？
-       //借用孔乙己的名字命名
-       //传入一个中心坐标，一个待测坐标
-       //给出回形相对位置
-       //#######
-       //#     #
-       //# ### #
-       //# # # #
-       //# @ # #
-       //#   # #
-       //##### #
-       
-       let xz = [x,z].map( i => { i = i.toFixed(0);i = i - i%16;if(i < 0){i = i + 1;};return i/16;});
-       let uv = [u,v].map( i => { i = i.toFixed(0);i = i - i%16;if(i < 0){i = i + 1;};return i/16;});
-       let mx = 256/8;
-       let i,j,k;
-       let tf = true;
-       let nu = 0;
-       for(k=0;k<mx;k++){
-          for(i=0;i<=k;i++){
-             for(j=0;j<=k;j++){
-                if(0+xz===0+uv){ break;};
-                if(tf){
-                 //好消息，摆烂不写了
-                  }else{
-                 
-                };
-                nu++;
-             }
-          }
-       }
-    return 
-  
-  
   }
   
 }
   
+
+const Chunk_Identify = {
+  slimeChunk : function(x,z){
+    let chunkX = Math.floor(x / 16),
+        chunkZ = Math.floor(z / 16);
+
+				let s = (chunkX * 0x1f1f1f1f ^ chunkZ) >>> 0;
+				let m = 1 + Math.imul((s ^ s >>> 30), 0x6c078965) >>> 0;
+				s = s & 0x80000000 | m & 0x7fffffff;
+				for (let i = 2; i < 398; i++)
+					m = i + Math.imul((m ^ m >>> 30), 0x6c078965) >>> 0;
+				m ^= (s >>> 1) ^ (s & 1 ? 0x9908b0df : 0x0);
+				m >>>= 0;
+				m ^= m >>> 11;
+				m ^= (m << 7 & 0x9d2c5680) >>> 0;
+				m ^= (m << 15 & 0xefc60000) >>> 0;
+				m ^= m >>> 18;
+
+				if (!((m >>> 0) % 10))
+					return true
+				else
+					return false
+  }
+}
   export default Chunk_Boundary_Point;
   
   /*

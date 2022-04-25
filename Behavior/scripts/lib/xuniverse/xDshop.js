@@ -231,7 +231,8 @@ world.events.beforeChat.subscribe(msg => {
         let color = Math.floor(Math.random() * 10);
         let Arr = message.replace("地牢购买 ","").split(" ")
         if(Arr.length == 3){
-            if(goodsListObject[Arr[0]]){if(goodsListObject[Arr[0]][Arr[1]]){
+            if(goodsListObject[Arr[0]]){
+                if(goodsListObject[Arr[0]][Arr[1]]){
                 let goods = goodsListObject[Arr[0]][Arr[1]]
                 let price = goods.price
                 if(+getScorePlayerStr(msg.sender.nameTag,"xdungon_dis")>=price*(+Arr[2])){

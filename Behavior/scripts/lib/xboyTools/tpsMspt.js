@@ -1,4 +1,4 @@
-import { world} from "mojang-minecraft";
+import { world } from "mojang-minecraft";
 
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");

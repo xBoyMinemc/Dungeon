@@ -5,6 +5,7 @@ import tpsMspt                 from '../lib/xboyTools/tpsMspt.js';
 //import fillAir                 from '../lib/xuniverse/xLand.js';
 import  '../lib/xuniverse/xDungeon.js';
 import  '../lib/xboyTools/r.js';
+import  '../lib/xboyTools/xMobOptimization.js';
 import Chunk_Boundary_Point    from '../lib/xpackage/chunkMath.js';
 const overworld = world.getDimension("overworld");
 const nether = world.getDimension("nether");
