@@ -12,9 +12,10 @@ const MAX_MINE_COUNT = 64 - 1      //这个数字只是个大概，因为写的�
 const List_A_Object = {
           //木质工具连个屁  "minecraft:wooden_pickaxe" : []
           //金质....
+          //没有对点燃的红石矿做优化，因为懒
           "minecraft:golden_pickaxe"       : [ "minecraft:coal_ore", "minecraft:deepslate_coal_ore", "minecraft:quartz_ore", "minecraft:nether_gold_ore"],
           "minecraft:stone_pickaxe"        : [ "minecraft:iron_ore", "minecraft:deepslate_iron_ore", "minecraft:copper_ore", "minecraft:deepslate_copper_ore", "minecraft:lapis_ore", "minecraft:deepslate_lapis_ore"],
-          "minecraft:iron_pickaxe"         : [ "minecraft:gold_ore", "minecraft:deepslate_gold_ore", "minecraft:emerald_ore", "minecraft:deepslate_emerald_ore", "minecraft:diamond_ore", "minecraft:deepslate_diamond_ore", "minecraft:lit_redstone_ore", "minecraft:deepslate_lit_redstone_ore", "minecraft:redstone_ore", "minecraft:deepslate_redstone_ore"],
+          "minecraft:iron_pickaxe"         : [ "minecraft:gold_ore", "minecraft:deepslate_gold_ore", "minecraft:emerald_ore", "minecraft:deepslate_emerald_ore", "minecraft:diamond_ore", "minecraft:deepslate_diamond_ore", "minecraft:lit_redstone_ore", "minecraft:lit_deepslate_redstone_ore", "minecraft:redstone_ore", "minecraft:deepslate_redstone_ore"],
           "minecraft:diamond_pickaxe"      : [ "minecraft:ancient_debris"],//,"minecraft:gold_block", "minecraft:deepslate_bricks"
           "minecraft:netherite_pickaxe"    : []
 }
