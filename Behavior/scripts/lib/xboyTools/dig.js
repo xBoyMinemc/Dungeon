@@ -28,7 +28,7 @@ world.events.blockBreak.subscribe((blockEvent) => {
         'minecraft:netherite_axe'    : ['log','acacia','birch','dark_oak','jungle','oak','spruce']
     };
  
-        (tools[hand.id] !== undefined)&&(Array.from(new Set(tools[hand.id].concat(breakonBlockTags))).length !== (tools[hand.id].length + breakonBlockTags.length))
+        !!(tools[hand.id] !== undefined)&&(Array.from(new Set(tools[hand.id].concat(breakonBlockTags))).length !== (tools[hand.id].length + breakonBlockTags.length))
         ? neighborBlock(blockEvent.block, blockEvent.dimension, blockEvent.brokenBlockPermutation.type.id)
         : console.warn("####00成功####");
     
